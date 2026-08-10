@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#1565c0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Tekkan Robot Servis Yönetim Uygulaması">
+
+    <title>Tekkan Servis</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+<div id="app">
+
+    <!-- ===================== FORM VIEW ===================== -->
+    <main id="view-form" class="view active">
+
+        <header class="app-header">
+            <div class="app-header-text">
+                <h1 id="formTitle">Yeni Servis Raporu</h1>
+                <p id="formSubtitle">Robot servis kaydı oluştur</p>
+            </div>
+            <button type="button" class="icon-btn" id="headerSaveBtn" title="Kaydet">
+                <i class="fa-solid fa-floppy-disk"></i>
+            </button>
+        </header>
+
+        <div class="content">
+
+            <section class="card">
+                <h2><i class="fa-solid fa-user-gear"></i> Servis Bilgileri</h2>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="technician">Servis Yetkilisi *</label>
+                        <select id="technician" required>
+                            <option value="">Seçiniz</option>
+                            <option value="Ahmet Kaya">Ahmet Kaya</option>
+                            <option value="Mehmet Yılmaz">Mehmet Yılmaz</option>
+                            <option value="Can Demir">Can Demir</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceNo">Servis No</label>
+                        <input type="text" id="serviceNo" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceDate">Tarih *</label>
+                        <input type="date" id="serviceDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departureTime">Hareket Saati</label>
+                        <input type="time" id="departureTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="arrivalTime">Varış Saati</label>
+                        <input type="time" id="arrivalTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="startTime">İşe Başlama</label>
+                        <input type="time" id="startTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="finishTime">İşi Bitiş</label>
+                        <input type="time" id="finishTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="totalTime">Toplam Süre</label>
+                        <input type="text" id="totalTime" readonly placeholder="Otomatik">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2><i class="fa-solid fa-building"></i> Firma Bilgileri</h2>
+                <div class="grid grid-1">
+                    <div class="form-group">
+                        <label for="companyName">Firma Adı *</label>
+                        <input type="text" id="companyName" placeholder="Firma adı" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyAddress">Firma Adresi</label>
+                        <input type="text" id="companyAddress" placeholder="Adres">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2><i class="fa-solid fa-microchip"></i> Robot Bilgileri</h2>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="robotType">Robot Tipi</label>
+                        <input type="text" id="robotType" placeholder="Robot tipi">
+                    </div>
+                    <div class="form-group">
+                        <label for="robotSerial">Seri No</label>
+                        <input type="text" id="robotSerial" placeholder="Seri numarası">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2><i class="fa-solid fa-clipboard-check"></i> İş Değerlendirme</h2>
+                <div class="checkbox-grid">
+                    <label><input type="checkbox" data-job="Normal Servis"> Normal Servis</label>
+                    <label><input type="checkbox" data-job="Önceki Servis Tamamlama"> Önceki Servis Tamamlama</label>
+                    <label><input type="checkbox" data-job="Garanti Harici"> Garanti Harici</label>
+                    <label><input type="checkbox" data-job="Devreye Alma"> Devreye Alma</label>
+                    <label><input type="checkbox" data-job="Tekrar Gidilmeli"> Tekrar Gidilmeli</label>
+                    <label><input type="checkbox" data-job="Garanti Dahili"> Garanti Dahili</label>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2><i class="fa-solid fa-oil-can"></i> Robot Yağ İhtiyacı</h2>
+                <div class="radio-group">
+                    <label><input type="radio" name="oil" value="Evet"> Evet</label>
+                    <label><input type="radio" name="oil" value="Hayır" checked> Hayır</label>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2><i class="fa-solid fa-stopwatch"></i> Çevrim Süreleri</h2>
+                <div class="grid grid-3">
+                    <div class="form-group">
+                        <label for="takeOut">Take Out (sn)</label>
+                        <input type="number" id="takeOut" inputmode="decimal" placeholder="sn">
+                    </div>
+                    <div class="form-group">
+                        <label for="robotCycle">Robot Çevrim (sn)</label>
+                        <input type="number" id="robotCycle" inputmode="decimal" placeholder="sn">
+                    </div>
+                    <div class="form-group">
+                        <label for="injectCycle">Enjeksiyon (sn)</label>
+                        <input type="number" id="injectCycle" inputmode="decimal" placeholder="sn">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-gears"></i> Yedek Parçalar</h2>
+                    <button type="button" id="addPartBtn" class="small-btn">
+                        <i class="fa-solid fa-plus"></i> Ekle
+                    </button>
+                </div>
+                <div class="parts-list" id="partsList"></div>
+            </section>
+
+            <section class="card">
+                <h2><i class="fa-solid fa-business-time"></i> Çalışma Durumu</h2>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="workDate">İşe Başlama Tarihi</label>
+                        <input type="date" id="workDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="workDescription">Açıklama</label>
+                        <input type="text" id="workDescription" placeholder="Kısa açıklama">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2><i class="fa-solid fa-file-lines"></i> Arıza / Çalışma Raporu</h2>
+                <textarea id="report" rows="8" placeholder="Yapılan işlemler, tespit edilen arızalar..."></textarea>
+            </section>
+
+            <div class="form-actions">
+                <button type="button" id="clearBtn" class="secondary-btn">
+                    <i class="fa-solid fa-rotate-left"></i> Temizle
+                </button>
+                <button type="button" id="saveServiceBtn" class="primary-btn">
+                    <i class="fa-solid fa-floppy-disk"></i> Kaydet
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ===================== LIST VIEW ===================== -->
+    <main id="view-list" class="view">
+
+        <header class="app-header">
+            <div class="app-header-text">
+                <h1>Servis Kayıtları</h1>
+                <p id="listCount">0 kayıt</p>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" id="searchInput" placeholder="Firma, servis no veya teknisyen ara...">
+            </div>
+            <div id="servicesList" class="services-list"></div>
+            <div id="emptyList" class="empty-state hidden">
+                <i class="fa-solid fa-folder-open"></i>
+                <p>Henüz servis kaydı yok</p>
+                <button type="button" class="primary-btn" data-nav="form">İlk Raporu Oluştur</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===================== DETAIL VIEW ===================== -->
+    <main id="view-detail" class="view">
+
+        <header class="app-header">
+            <button type="button" class="icon-btn back-btn" data-nav="list">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="app-header-text">
+                <h1 id="detailTitle">Servis Detayı</h1>
+                <p id="detailSubtitle"></p>
+            </div>
+            <button type="button" class="icon-btn" id="detailShareBtn" title="Paylaş">
+                <i class="fa-solid fa-share-nodes"></i>
+            </button>
+        </header>
+
+        <div class="content" id="detailContent"></div>
+
+        <div class="detail-actions">
+            <button type="button" id="detailPdfBtn" class="secondary-btn">
+                <i class="fa-solid fa-file-pdf"></i> PDF
+            </button>
+            <button type="button" id="detailEditBtn" class="primary-btn">
+                <i class="fa-solid fa-pen"></i> Düzenle
+            </button>
+            <button type="button" id="detailDeleteBtn" class="danger-btn">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- ===================== SETTINGS VIEW ===================== -->
+    <main id="view-settings" class="view">
+
+        <header class="app-header">
+            <div class="app-header-text">
+                <h1>Ayarlar</h1>
+                <p>Uygulama tercihleri</p>
+            </div>
+        </header>
+
+        <div class="content">
+            <section class="card settings-card">
+                <h2><i class="fa-solid fa-database"></i> Veri</h2>
+                <button type="button" id="exportJsonBtn" class="settings-btn">
+                    <span><i class="fa-solid fa-download"></i> Tüm Veriyi Dışa Aktar (JSON)</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <button type="button" id="importJsonBtn" class="settings-btn">
+                    <span><i class="fa-solid fa-upload"></i> Veri İçe Aktar</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <input type="file" id="importFile" accept=".json" hidden>
+                <button type="button" id="clearAllBtn" class="settings-btn danger">
+                    <span><i class="fa-solid fa-trash"></i> Tüm Kayıtları Sil</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </section>
+
+            <section class="card settings-card">
+                <h2><i class="fa-solid fa-mobile-screen"></i> Uygulama</h2>
+                <div class="info-row">
+                    <span>Sürüm</span>
+                    <strong>2.0.0</strong>
+                </div>
+                <div class="info-row">
+                    <span>Depolama</span>
+                    <strong id="storageInfo">Yerel</strong>
+                </div>
+                <p class="hint">Ana ekrana ekleyerek uygulama gibi kullanabilirsiniz.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button type="button" class="nav-item active" data-nav="form">
+            <i class="fa-solid fa-plus-circle"></i>
+            <span>Yeni</span>
+        </button>
+        <button type="button" class="nav-item" data-nav="list">
+            <i class="fa-solid fa-list"></i>
+            <span>Kayıtlar</span>
+        </button>
+        <button type="button" class="nav-item" data-nav="settings">
+            <i class="fa-solid fa-gear"></i>
+            <span>Ayarlar</span>
+        </button>
+    </nav>
+
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<div id="confirmModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+        <h3 id="confirmTitle">Emin misiniz?</h3>
+        <p id="confirmMessage"></p>
+        <div class="modal-actions">
+            <button type="button" id="confirmCancel" class="secondary-btn">İptal</button>
+            <button type="button" id="confirmOk" class="danger-btn">Sil</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/pdf.js"></script>
+<script src="js/form.js"></script>
+<script src="js/list.js"></script>
+<script src="js/app.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+</script>
+</body>
+</html>

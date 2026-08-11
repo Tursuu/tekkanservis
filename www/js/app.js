@@ -9,6 +9,12 @@ const App = {
         this.bindNavigation();
         this.bindSettings();
         await this.initAuth();
+        if (!this.currentUser) {
+            this.navigate("settings");
+            this.toast("Önce hesap açın veya giriş yapın", "error");
+        } else {
+            this.navigate("form");
+        }
         List.render();
     },
 
@@ -16,6 +22,10 @@ const App = {
         document.querySelectorAll("[data-nav]").forEach(el => {
             el.addEventListener("click", () => {
                 const view = el.dataset.nav;
+                if (!this.currentUser && view !== "settings") {
+                    this.toast("Önce Hesap bölümünden giriş yapın", "error");
+                    return;
+                }
                 if (view === "form" && this.currentView !== "form") {
                     Form.resetForm();
                 }

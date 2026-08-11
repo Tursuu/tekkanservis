@@ -138,7 +138,10 @@ const App = {
             this.currentUser = data.session?.user || null;
             this.updateAuthStatus();
             if (this.currentUser) {
-                document.getElementById("technician").value = this.currentUser.email || "";
+                const techField = document.getElementById("technician");
+                if (!techField.value) {
+                    techField.value = this.currentUser.email || "";
+                }
             }
         } catch (error) {
             console.error(error);

@@ -10,8 +10,7 @@ const App = {
         this.bindSettings();
         await this.initAuth();
         if (!this.currentUser) {
-            this.navigate("settings");
-            this.toast("Önce hesap açın veya giriş yapın", "error");
+            this.navigate("auth");
         } else {
             this.navigate("form");
         }
@@ -22,8 +21,8 @@ const App = {
         document.querySelectorAll("[data-nav]").forEach(el => {
             el.addEventListener("click", () => {
                 const view = el.dataset.nav;
-                if (!this.currentUser && view !== "settings") {
-                    this.toast("Önce Hesap bölümünden giriş yapın", "error");
+                if (!this.currentUser && view !== "auth") {
+                    this.toast("Önce giriş yapın", "error");
                     return;
                 }
                 if (view === "form" && this.currentView !== "form") {
@@ -43,6 +42,8 @@ const App = {
         document.querySelectorAll(".nav-item").forEach(n => {
             n.classList.toggle("active", n.dataset.nav === view);
         });
+
+        document.body.classList.toggle("auth-active", view === "auth");
 
         if (view === "list") List.render();
     },
@@ -139,19 +140,9 @@ const App = {
             if (this.currentUser) {
                 document.getElementById("technician").value = this.currentUser.email || "";
             }
-            this.toggleAuthModal(!this.currentUser);
         } catch (error) {
             console.error(error);
-            this.toggleAuthModal(true);
-        }
-    },
-
-    toggleAuthModal(show) {
-        const modal = document.getElementById("authModal");
-        if (show) {
-            modal.classList.remove("hidden");
-        } else {
-            modal.classList.add("hidden");
+            this.currentUser = null;
         }
     },
 
@@ -189,7 +180,6 @@ const App = {
             this.currentUser = data.user;
             document.getElementById("technician").value = this.currentUser.email || "";
             this.updateAuthStatus();
-            this.toggleAuthModal(false);
             this.navigate("form");
             this.toast("Giriş yapıldı", "success");
         } catch (error) {
@@ -206,8 +196,7 @@ const App = {
             this.currentUser = null;
             document.getElementById("technician").value = "";
             this.updateAuthStatus();
-            this.toggleAuthModal(true);
-            this.navigate("settings");
+            this.navigate("auth");
             this.toast("Çıkış yapıldı", "success");
         } catch (error) {
             console.error(error);

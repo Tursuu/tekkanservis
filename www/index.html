@@ -316,28 +316,31 @@
         </button>
     </nav>
 
-</div>
+    <!-- ===================== AUTH VIEW ===================== -->
+    <main id="view-auth" class="view">
+        <div class="login-screen">
+            <div class="login-card">
+                <h1>Tekkan Servis</h1>
+                <p>Devam etmek için giriş yap veya yeni hesap oluştur.</p>
+                <div class="form-group">
+                    <label for="authEmail">E-posta</label>
+                    <input type="email" id="authEmail" placeholder="example@domain.com">
+                </div>
+                <div class="form-group">
+                    <label for="authPassword">Parola</label>
+                    <input type="password" id="authPassword" placeholder="Parolanız">
+                </div>
+                <button type="button" id="authSignUpBtn" class="primary-btn">
+                    Hesap Aç
+                </button>
+                <button type="button" id="authSignInBtn" class="secondary-btn">
+                    Giriş Yap
+                </button>
+                <p id="authHelpText" class="hint">E-posta doğrulaması gerekiyorsa e-postanı kontrol et.</p>
+            </div>
+        </div>
+    </main>
 
-<div id="authModal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-box">
-        <h3>Hesabınla Devam Et</h3>
-        <p>Bu uygulamayı kullanabilmek için lütfen giriş yap veya hesap aç.</p>
-        <div class="form-group">
-            <label for="authEmail">E-posta</label>
-            <input type="email" id="authEmail" placeholder="example@domain.com">
-        </div>
-        <div class="form-group">
-            <label for="authPassword">Parola</label>
-            <input type="password" id="authPassword" placeholder="Parolanız">
-        </div>
-        <button type="button" id="authSignUpBtn" class="primary-btn" style="width:100%; margin-bottom:12px;">
-            Hesap Aç
-        </button>
-        <button type="button" id="authSignInBtn" class="secondary-btn" style="width:100%;">
-            Giriş Yap
-        </button>
-    </div>
 </div>
 
 <div id="toast" class="toast hidden"></div>

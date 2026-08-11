@@ -118,8 +118,8 @@ const App = {
             }
         });
 
-        document.getElementById("signUpBtn").addEventListener("click", () => this.signUp());
-        document.getElementById("signInBtn").addEventListener("click", () => this.signIn());
+        document.getElementById("authSignUpBtn").addEventListener("click", () => this.signUp());
+        document.getElementById("authSignInBtn").addEventListener("click", () => this.signIn());
         document.getElementById("signOutBtn").addEventListener("click", () => this.signOut());
 
         document.getElementById("confirmCancel").addEventListener("click", () => this.hideConfirm());
@@ -139,8 +139,19 @@ const App = {
             if (this.currentUser) {
                 document.getElementById("technician").value = this.currentUser.email || "";
             }
+            this.toggleAuthModal(!this.currentUser);
         } catch (error) {
             console.error(error);
+            this.toggleAuthModal(true);
+        }
+    },
+
+    toggleAuthModal(show) {
+        const modal = document.getElementById("authModal");
+        if (show) {
+            modal.classList.remove("hidden");
+        } else {
+            modal.classList.add("hidden");
         }
     },
 
@@ -178,6 +189,8 @@ const App = {
             this.currentUser = data.user;
             document.getElementById("technician").value = this.currentUser.email || "";
             this.updateAuthStatus();
+            this.toggleAuthModal(false);
+            this.navigate("form");
             this.toast("Giriş yapıldı", "success");
         } catch (error) {
             console.error(error);
@@ -193,6 +206,8 @@ const App = {
             this.currentUser = null;
             document.getElementById("technician").value = "";
             this.updateAuthStatus();
+            this.toggleAuthModal(true);
+            this.navigate("settings");
             this.toast("Çıkış yapıldı", "success");
         } catch (error) {
             console.error(error);

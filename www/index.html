@@ -268,6 +268,19 @@
             </section>
 
             <section class="card settings-card">
+                <h2><i class="fa-solid fa-cloud-arrow-up"></i> Supabase Senkronizasyonu</h2>
+                <button type="button" id="supabaseUploadBtn" class="settings-btn">
+                    <span><i class="fa-solid fa-arrow-up-from-bracket"></i> Yereli Supabase'e Gönder</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <button type="button" id="supabaseDownloadBtn" class="settings-btn">
+                    <span><i class="fa-solid fa-arrow-down-to-bracket"></i> Supabase'den Getir</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <p class="hint">Supabase URL ve anon anahtarını <code>www/js/supabase.js</code> içine girin.</p>
+            </section>
+
+            <section class="card settings-card">
                 <h2><i class="fa-solid fa-mobile-screen"></i> Uygulama</h2>
                 <div class="info-row">
                     <span>Sürüm</span>
@@ -316,6 +329,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/supabase.js"></script>
 <script src="js/storage.js"></script>
 <script src="js/pdf.js"></script>
 <script src="js/form.js"></script>

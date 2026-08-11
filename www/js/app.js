@@ -83,6 +83,29 @@ const App = {
             );
         });
 
+        document.getElementById("supabaseUploadBtn").addEventListener("click", async () => {
+            try {
+                const count = await Storage.syncToSupabase();
+                this.toast(`${count} kayıt Supabase'e gönderildi`, "success");
+            } catch (error) {
+                console.error(error);
+                const message = error?.message || error?.details || JSON.stringify(error);
+                this.toast(`Supabase gönderimi hatası: ${message}`, "error");
+            }
+        });
+
+        document.getElementById("supabaseDownloadBtn").addEventListener("click", async () => {
+            try {
+                const count = await Storage.syncFromSupabase();
+                List.render();
+                this.toast(`${count} kayıt Supabase'den indirildi`, "success");
+            } catch (error) {
+                console.error(error);
+                const message = error?.message || error?.details || JSON.stringify(error);
+                this.toast(`Supabase alma hatası: ${message}`, "error");
+            }
+        });
+
         document.getElementById("confirmCancel").addEventListener("click", () => this.hideConfirm());
         document.getElementById("confirmOk").addEventListener("click", () => {
             if (this.confirmCallback) this.confirmCallback();

@@ -39,12 +39,7 @@
                 <div class="grid grid-2">
                     <div class="form-group">
                         <label for="technician">Servis Yetkilisi *</label>
-                        <select id="technician" required>
-                            <option value="">Seçiniz</option>
-                            <option value="Ahmet Kaya">Ahmet Kaya</option>
-                            <option value="Mehmet Yılmaz">Mehmet Yılmaz</option>
-                            <option value="Can Demir">Can Demir</option>
-                        </select>
+                        <input type="text" id="technician" readonly placeholder="Ayarlar'dan giriş yapın" required>
                     </div>
                     <div class="form-group">
                         <label for="serviceNo">Servis No</label>
@@ -261,6 +256,32 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
                 <input type="file" id="importFile" accept=".json" hidden>
+
+                <div class="settings-card">
+                    <h2><i class="fa-solid fa-user-lock"></i> Hesap</h2>
+                    <div class="form-group">
+                        <label for="authEmail">E-posta</label>
+                        <input type="email" id="authEmail" placeholder="example@domain.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="authPassword">Parola</label>
+                        <input type="password" id="authPassword" placeholder="Parolanız">
+                    </div>
+                    <button type="button" id="signUpBtn" class="settings-btn">
+                        <span><i class="fa-solid fa-user-plus"></i> Hesap Aç</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button type="button" id="signInBtn" class="settings-btn">
+                        <span><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button type="button" id="signOutBtn" class="settings-btn danger">
+                        <span><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <p id="currentUserStatus" class="hint">Giriş yapılmadı</p>
+                </div>
+
                 <button type="button" id="clearAllBtn" class="settings-btn danger">
                     <span><i class="fa-solid fa-trash"></i> Tüm Kayıtları Sil</span>
                     <i class="fa-solid fa-chevron-right"></i>

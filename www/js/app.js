@@ -1,12 +1,14 @@
 const App = {
     currentView: "form",
     confirmCallback: null,
+    currentUser: null,
 
-    init() {
+    async init() {
         Form.init();
         List.init();
         this.bindNavigation();
         this.bindSettings();
+        await this.initAuth();
         List.render();
     },
 
@@ -106,12 +108,95 @@ const App = {
             }
         });
 
+        document.getElementById("signUpBtn").addEventListener("click", () => this.signUp());
+        document.getElementById("signInBtn").addEventListener("click", () => this.signIn());
+        document.getElementById("signOutBtn").addEventListener("click", () => this.signOut());
+
         document.getElementById("confirmCancel").addEventListener("click", () => this.hideConfirm());
         document.getElementById("confirmOk").addEventListener("click", () => {
             if (this.confirmCallback) this.confirmCallback();
             this.hideConfirm();
         });
         document.querySelector(".modal-backdrop").addEventListener("click", () => this.hideConfirm());
+    },
+
+    async initAuth() {
+        try {
+            const client = getSupabaseClient();
+            const { data } = await client.auth.getSession();
+            this.currentUser = data.session?.user || null;
+            this.updateAuthStatus();
+            if (this.currentUser) {
+                document.getElementById("technician").value = this.currentUser.email || "";
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async signUp() {
+        const email = document.getElementById("authEmail").value.trim();
+        const password = document.getElementById("authPassword").value.trim();
+        if (!email || !password) {
+            this.toast("E-posta ve parola girin", "error");
+            return;
+        }
+
+        try {
+            const client = getSupabaseClient();
+            const { error } = await client.auth.signUp({ email, password });
+            if (error) throw error;
+            this.toast("Hesap açma isteği gönderildi. E-postanı kontrol et", "success");
+        } catch (error) {
+            console.error(error);
+            this.toast(error.message || "Hesap açılırken hata oluştu", "error");
+        }
+    },
+
+    async signIn() {
+        const email = document.getElementById("authEmail").value.trim();
+        const password = document.getElementById("authPassword").value.trim();
+        if (!email || !password) {
+            this.toast("E-posta ve parola girin", "error");
+            return;
+        }
+
+        try {
+            const client = getSupabaseClient();
+            const { error, data } = await client.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+            this.currentUser = data.user;
+            document.getElementById("technician").value = this.currentUser.email || "";
+            this.updateAuthStatus();
+            this.toast("Giriş yapıldı", "success");
+        } catch (error) {
+            console.error(error);
+            this.toast(error.message || "Giriş yapılırken hata oluştu", "error");
+        }
+    },
+
+    async signOut() {
+        try {
+            const client = getSupabaseClient();
+            const { error } = await client.auth.signOut();
+            if (error) throw error;
+            this.currentUser = null;
+            document.getElementById("technician").value = "";
+            this.updateAuthStatus();
+            this.toast("Çıkış yapıldı", "success");
+        } catch (error) {
+            console.error(error);
+            this.toast(error.message || "Çıkış yapılırken hata oluştu", "error");
+        }
+    },
+
+    updateAuthStatus() {
+        const status = document.getElementById("currentUserStatus");
+        if (this.currentUser) {
+            status.textContent = `Giriş yapan: ${this.currentUser.email}`;
+        } else {
+            status.textContent = "Giriş yapılmadı";
+        }
     },
 
     toast(message, type = "") {

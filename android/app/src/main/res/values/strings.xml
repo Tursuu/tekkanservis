@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tekkan Servis</string>
+    <string name="title_activity_main">Tekkan Servis</string>
+    <string name="package_name">com.tekkan.servis</string>
+    <string name="custom_url_scheme">com.tekkan.servis</string>
+</resources>

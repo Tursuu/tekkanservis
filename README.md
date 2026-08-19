@@ -1,4 +1,4 @@
-# Tekkan Servis
+# Servis
 
 ## Robot Servis Yönetim Uygulaması
 
@@ -80,7 +80,7 @@ Ayrıca gerçek bir iş sürecine yönelik uygulama geliştirerek kullanıcı ih
 
 ////////////////////////////////////////////////////////
 
-# Tekkan Servis
+#  Service
 
 ## Robot Service Management Application
 
